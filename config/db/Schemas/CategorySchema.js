@@ -1,5 +1,5 @@
 // Schemas.CategorySchema
-const mongoose = require('../Collection')
+const mongoose = require('../db')
 const shortId = require('shortid')
     .generate
 const Schema = mongoose.Schema

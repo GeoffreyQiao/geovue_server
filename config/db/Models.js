@@ -1,5 +1,5 @@
 const { product, productDetail, category, unit } = require('./Schemas')
-const db = require('./Collection')
+const db = require('./db')
 
 Product = db.model('Product', product)
 ProductDetail = db.model('ProductDetail', productDetail)

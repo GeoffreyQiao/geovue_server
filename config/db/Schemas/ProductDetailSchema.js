@@ -1,7 +1,7 @@
 // Schemas.ProductDetailSchema
 const shortId = require('shortid')
     .generate
-const mongoose = require('../Collection')
+const mongoose = require('../db')
 const Schema = mongoose.Schema
 let validErrMsg = '{VALUE} 不是合法的 {PATH} 数据!'
 const productDetail = new Schema({

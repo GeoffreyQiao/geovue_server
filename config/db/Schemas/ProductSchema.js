@@ -1,6 +1,6 @@
 // Schemas.ProductSchema
 const mongoose = require('mongoose')
-const db = require('../Collection')
+const db = require('../db')
 const PinYin = require('../../../libs/pinyin')
 const productDetail = require('./ProductDetailSchema')
 const shortId = require('shortid')
