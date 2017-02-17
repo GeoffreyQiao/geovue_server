@@ -83,3 +83,17 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# ============================
+# Visual Studio
+.vs
+
+
+# ============================
+# Visual Studio Code
+.vscode
+
+
+# ============================
+# Typescript tools: Typings
+typings

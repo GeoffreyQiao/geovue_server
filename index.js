@@ -1,12 +1,11 @@
-import fs from 'fs'
-import path from 'path'
-import favicon from 'serve-favicon'
-import bodyParser from 'body-parser'
-import cookieParser from 'cookie-parser'
-import express from 'express'
-
-
-
+const errMsg = require('./config/app.config')
+const fs = require('fs')
+const path = require('path')
+const favicon = require('serve-favicon')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const express = require('express')
+const db = require('./config/db')
 const app = express()
 
 app.use(bodyParser.json())

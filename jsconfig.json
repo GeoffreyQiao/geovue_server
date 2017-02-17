@@ -1,0 +1,25 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=759670
+    // for the documentation about the jsconfig.json format
+    "compilerOptions": {
+        "target": "es2015",
+        "module": "commonjs",
+        "allowSyntheticDefaultImports": true,
+        "rootDir": "D:\\www\\geovue_server\\",
+        "pretty": true,
+        "noResolve": true,
+        "removeComments": true
+    },
+    "exclude": [
+        "node_modules",
+        "bower_components",
+        "jspm_packages",
+        ".vs",
+        ".idea",
+        ".vscode",
+        "tmp",
+        "temp",
+        "*-error.log",
+        "npm-debug.log.*"
+    ]
+}

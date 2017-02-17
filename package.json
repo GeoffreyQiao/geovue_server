@@ -1,18 +1,28 @@
 {
-  "name": "geo_vue_server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Geoffrey Qiao",
-  "license": "MIT",
-  "dependencies": {
-    "@types/body-parser": "0.0.33",
-    "@types/cookie-parser": "^1.3.30",
-    "@types/express": "^4.0.35",
-    "@types/mongoose": "^4.7.3",
-    "@types/serve-favicon": "^2.2.28"
-  }
+    "author": "Geoffrey Qiao",
+    "dependencies": {
+        "express": "^4.14.1",
+        "serve-favicon": "^2.3.2",
+        "mongoose": "^4.8.1"
+    },
+    "description": "",
+    "devDependencies": {
+        "@types/body-parser": "0.0.33",
+        "@types/cookie-parser": "^1.3.30",
+        "@types/express": "^4.0.35",
+        "@types/mongoose": "^4.7.5",
+        "@types/serve-favicon": "^2.2.28",
+        "body-parser": "^1.16.0",
+        "chalk": "^1.1.3",
+        "cookie-parser": "^1.4.3",
+        "shortid": "^2.2.6"
+    },
+    "license": "MIT",
+    "main": "index.js",
+    "name": "geo_vue_server",
+    "scripts": {
+        "test": "node ./config/db/index.js --nolazy",
+        "debug": "node --inspect --debug-brk=5858 ./config/db/index.js"
+    },
+    "version": "1.0.0"
 }
