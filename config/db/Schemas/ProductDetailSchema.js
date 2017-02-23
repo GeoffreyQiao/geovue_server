@@ -1,78 +1,107 @@
 // Schemas.ProductDetailSchema
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const db = require('../db')
 const shortId = require('shortid')
     .generate
-const mongoose = require('../db')
-const Schema = mongoose.Schema
-let validErrMsg = '{VALUE} 不是合法的 {PATH} 数据!'
-const productDetail = new Schema({
+
+const productDetail = Schema({
     _id: {
         type: String,
-        'default': shortId,
-        required: true,
         index: true,
-        unique: true
+        unique: true,
+        'default': shortId
     },
-    barCode: { //条码
+    product_id: {
         type: String,
         index: true,
-        unique: [true, '条形码已存在'],
-        match: [/^[0-9]{13}$/, validErrMsg],
-        required: [true, '条形码为必填项']
+        ref: 'Product',
+        required: true
     },
-    unit_id: { //商品单位
+    barCode: {
         type: String,
         index: true,
-        sparse: true,
+        unique: true,
+        match: /^\d{4,13}[[\-\.]?\d*]?$/,
+        required: true
+    },
+    unit_id: {
+        type: String,
+        index: true,
         ref: 'Unit'
     },
-    parent: { //父级商品
-        type: Boolean,
-        default: false
+    base: {
+        type: 'Boolean',
+        default: true
     },
-    pid: { //父级商品id
-        index: true,
+    parent_id: {
         type: String,
+        index: true,
         unique: true,
-        ref: 'ProductDetail',
-        default: ''
+        ref: 'ProductDetail'
     },
-    timesForParent: { //与父级商品的数量关系
-        type: Number,
+    timesForParent: {
+        type: 'Number',
         required: true,
         default: 1
     },
-    spec: { //规格
+    spec: {
         type: String,
         unique: true,
         required: true,
-        match: [/^[\u4E00-\u9FA5\w\d]*[•@\/\\\+\-\.]?[\u4E00-\u9FA5\w\d]+$/, validErrMsg]
+        match: /^[\u4E00-\u9FA5\w\d]*[•@\\\/\+\-\.]?[\u4E00-\u9FA5\w\d]+$/
     },
-    purchasePrice: { //成本价
+    purchasePrice: {
         type: Number,
         required: true
     },
-    suggestPrice: { //建议零售价
+    suggestPrice: {
         type: Number,
         required: true
     },
-    inSale: { //是否在售
+    inSale: {
         type: Boolean,
         default: true
     }
-}, { //option for mongoose.Schema
+}, {
+    timestamps: true,
     retainKeyOrder: true,
     versionKey: false
 })
 
-productDetail.statics.addOne = function(details, cb) {
-    return new Promise((resolve, reject) => {
-        Unit.findIdByName(details.unit, (err, unit) => {
-            if (err) reject('err on unit', err)
-            details.unit_id = unit._id
-            resolve(details)
-        })
-    })
+productDetail.static({
+
+    add(details, id) {
+        return Promise.resolve([details, id])
+            .then(createDetail)
+            .then(afterCreate)
+            .catch(err => console.log(err))
+    }
+})
+
+function afterCreate(res) {
+    if (res) return res
+    throw new Error('ERROR:\n\t新增商品详情结果为空')
 }
 
+function createDetail(data) {
+    return Promise.resolve(data)
+        .then(findUnitId)
+        .then(pdata => ProductDetail.create(pdata))
+}
+
+function findUnitId(data) {
+    let [detail, pid] = data
+    if (pid) detail.product_id = pid
+    if (!detail.unit_id) {
+        return Unit.findIdByName(detail.unit)
+            .then(unit => {
+                detail.unit_id = unit._id
+                return detail
+            })
+    } else {
+        return detail
+    }
+}
 //最后一行
 exports = module.exports = productDetail

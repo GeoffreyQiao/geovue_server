@@ -7,7 +7,7 @@
         "allowSyntheticDefaultImports": true,
         "rootDir": "D:\\www\\geovue_server\\",
         "pretty": true,
-        "noResolve": true,
+        // "noResolve": true,
         "removeComments": true
     },
     "exclude": [
@@ -15,6 +15,7 @@
         "bower_components",
         "jspm_packages",
         ".vs",
+        "dist",
         ".idea",
         ".vscode",
         "tmp",
