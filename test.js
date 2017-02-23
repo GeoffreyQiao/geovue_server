@@ -1,47 +1,16 @@
-const chalk = require('chalk')
-
-function runAsync1() {
-    var p = new Promise(function(resolve, reject) {
-        //做一些异步操作
-        setTimeout(function() {
-            console.log(chalk.green('异步任务1  执行完成'))
-            resolve('随便什么数据1');
-        }, 1000);
-    });
-    return p;
-}
-
-function runAsync2() {
-    var p = new Promise(function(resolve, reject) {
-        //做一些异步操作
-        setTimeout(function() {
-            console.log(chalk.green('异步任务2  执行完成'))
-            resolve('随便什么数据2');
-        }, 2000);
-    });
-    return p;
-}
-
-function runAsync3() {
-    var p = new Promise(function(resolve, reject) {
-        //做一些异步操作
-        setTimeout(function() {
-            console.log(chalk.green('异步任务3  执行完成'))
-            resolve('随便什么数据3');
-        }, 2000);
-    });
-    return p;
-}
-
-runAsync1() // 异步任务1执行完成
-    .then(function(data) {
-        console.log(chalk.red(data, '\n')) // 随便什么数据1
-        return runAsync2(); // 异步任务2执行完成
-    })
-    .then(function(data) {
-        console.log(chalk.red(data, '\n')) // 随便什么数据2
-        return runAsync3(); // 异步任务3执行完成
-    })
-    .then(function(data) {
-        console.log(chalk.red(data, '\n')) // 随便什么数据3
-    });
+      ``
+      `mermaid
+      graph TB
+        input(input 的外部数据)-->hasProductId{是否有 product_id}
+        hasProductId--true-->hasProductDetail{是否有 productDetail}
+        hasProductId--false-->findProductId{通过 name 查找 product_id}
+        subgraph 有id
+          hasProductDetail--true-->addProductDetail(新增 ProductDetail)
+          addProductDetail-->productDetailAdded{新增 ProductDetail 是否成功}
+          productDetailAdded--true-->addNewProductDetailIdToProduct(向 product_id 对应的商品信息添加新增 productDetail 的 ID)
+        end
+        subgraph 没id
+          findProductId--false-->createProduct(新增 product)
+        end
+      `
+      ``

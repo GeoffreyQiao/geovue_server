@@ -1,0 +1,164 @@
+{
+    "product": {
+        "schema": {
+            "_id": {
+                "type": "String",
+                "\\'default\\'": "shortId",
+                "required": true,
+                "index": true,
+                "unique": true
+            },
+            "name": {
+                "type": "String",
+                "index": true,
+                "unique": true,
+                "required": true,
+                "match": "/^[\\u4E00-\\u9FA5[a-zA-Z][0-9]]{1,5}[•@\\/\\\\+-\\.]?[\\u4E00-\\u9FA5[a-zA-Z][0-9]]{1,10}$/"
+            },
+            "aliasName": {
+                "type": "String",
+                "uppercase": true,
+                "required": true,
+                "match": "/^[a-zA-Z]{2,8}[0-9]{0,2}$/"
+            },
+            "brand": {
+                "type": "String",
+                "index": true,
+                "macth": "/^[\\u4E00-\\u9FA5[a-zA-Z][0-9]]{2, 10}$/"
+            },
+            "producer": {
+                "type": "String",
+                "required": true,
+                "match": "/[\\u4E00-\\u9FA5]{2,10}/"
+            },
+            "category_id": {
+                "type": "String",
+                "ref": "\\'Category\\'"
+            },
+            "items": [{
+                "type": "String",
+                "ref": "\\'ProductDetail\\'"
+            }]
+        },
+        "option": {
+            "timestamps": true,
+            "retainKeyOrder": true,
+            "versionKey": false
+        }
+    },
+
+    "productDetail": {
+        "schema": {
+            "_id": {
+                "type": "String",
+                "index": true,
+                "unique": true,
+                "\\'default\\'": "shortId"
+            },
+            "info_id": {
+                "type": "String",
+                "index": true,
+                "ref": "\\'Product\\'",
+                "required": true
+            },
+            "barCode": {
+                "type": "String",
+                "index": true,
+                "unique": true,
+                "match": "/^[0-9]{13}$/",
+                "required": true
+            },
+            "unit_id": {
+                "type": "String",
+                "index": true,
+                "ref": "\\'Unit\\'"
+            },
+            "base": {
+                "type": "Boolean",
+                "default": true
+            },
+            "parent_id": {
+                "type": "String",
+                "index": true,
+                "unique": true,
+                "ref": "\\'ProductDetail\\'"
+            },
+            "timesForParent": {
+                "type": "Number",
+                "required": true,
+                "default": 1
+            },
+            "spec": {
+                "type": "String",
+                "unique": true,
+                "required": true,
+                "match": "/^[\\u4E00-\\u9FA5\\w\\d]*[•@\\/\\/\\+\\-\\.]?[\\u4E00-\\u9FA5\\w\\d]+$/"
+            },
+            "purchasePrice": {
+                "type": "Number",
+                "required": true
+            },
+            "suggestPrice": {
+                "type": "Number",
+                "required": true
+            },
+            "inSale": {
+                "type": "Boolean",
+                "default": true
+            }
+        },
+        "option": {
+            "retainKeyOrder": true,
+            "versionKey": false
+        }
+    },
+
+    "category": {
+        "schema": {
+            "name": {
+                "type": "String",
+                "index": true,
+                "required": true,
+                "unique": true
+            },
+            "pid": {
+                "type": "String",
+                "ref": "\\'Category\\'"
+            },
+            "_id": {
+                "type": "String",
+                "index": true,
+                "unique": true,
+                "\\'default\\'": "shortId"
+            }
+        },
+        "option": {
+            "versionKey": false
+        }
+    },
+
+    "unit": {
+        "schema": {
+            "name": {
+                "type": "String",
+                "select": true,
+                "index": true,
+                "required": true,
+                "unique": true
+            },
+            "_id": {
+                "type": "String",
+                "index": true,
+                "unique": true,
+                "\\'default\\'": "shortId"
+            },
+            "pid": {
+                "type": "String",
+                "ref": "\\'Unit\\'"
+            }
+        },
+        "option": {
+            "versionKey": false
+        }
+    }
+}
